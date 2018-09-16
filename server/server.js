@@ -14,6 +14,16 @@ console.log('new user connected');
 //    "from":"ankur@gmail.com","text":"ankur is most awesome guy",
 //    "createAt":123 
 // });
+socket.emit('newMessage',{
+    from:"Admin",
+    text:"Welcome to Chat App"
+   
+});
+socket.broadcast.emit('newMessage',{
+    from: "Admin",
+    text:"New User joined",
+     createAt: new Date().getTime()
+})
  socket.on('disconnect',()=>{
         console.log("User was dissconected");
     });
@@ -24,6 +34,11 @@ console.log('createdMessage',message);
             text:message.text,
             createdAt: new Date().getTime()
         })
+    // socket.broadcast.emit('newMessage',{
+    //     from:message.from,
+    //     text:message.text,
+    //     createdAt: new Date().getTime()
+    // })
     })
 })
 server .listen(port,()=>{
