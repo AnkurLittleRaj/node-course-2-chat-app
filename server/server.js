@@ -10,15 +10,20 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 io.on('connection',(socket)=>{
 console.log('new user connected');
-socket.emit('newMessage',{
-   "from":"ankur@gmail.com","text":"ankur is most awesome guy",
-   "createAt":123 
-});
+// socket.emit('newMessage',{
+//    "from":"ankur@gmail.com","text":"ankur is most awesome guy",
+//    "createAt":123 
+// });
  socket.on('disconnect',()=>{
         console.log("User was dissconected");
     });
-    socket.on('createMessage',(newEmail)=>{
-console.log('createdMessage',newEmail);
+    socket.on('createMessage',(message)=>{
+console.log('createdMessage',message);
+    io.emit('newMessage',{
+            from:message.from,
+            text:message.text,
+            createdAt: new Date().getTime()
+        })
     })
 })
 server .listen(port,()=>{
