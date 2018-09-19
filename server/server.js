@@ -20,9 +20,10 @@ socket.broadcast.emit('newMessage',generateMessage('Admin','New User Joined'))
  socket.on('disconnect',()=>{
         console.log("User was dissconected");
     });
-    socket.on('createMessage',(message)=>{
+    socket.on('createMessage',(message,callback)=>{
 console.log('createdMessage',message);
-    io.emit('newMessage',generateMessage(message.from,message.text))
+    io.emit('newMessage',generateMessage(message.from,message.text));
+    callback("This is from server");
     // socket.broadcast.emit('newMessage',{
     //     from:message.from,
     //     text:message.text,
